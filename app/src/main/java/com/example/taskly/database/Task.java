@@ -28,7 +28,7 @@ public class Task {
     private String startTime; // Time in HH:mm format
 
     @ColumnInfo(name = "duration")
-    private int duration;
+    private String duration;
 
     @ColumnInfo(name = "status_id")
     private int statusId;
@@ -36,7 +36,7 @@ public class Task {
     @ColumnInfo(name = "location")
     private String location;
 
-    public Task(String shortName, String description, String startTime, int duration, int statusId, String location){
+    public Task(String shortName, String description, String startTime, String duration, int statusId, String location){
         this.shortName = shortName;
         this.description = description;
         this.startTime = startTime;
@@ -77,11 +77,11 @@ public class Task {
         this.startTime = startTime;
     }
 
-    public int getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(int duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 
