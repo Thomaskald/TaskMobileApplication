@@ -10,7 +10,7 @@
 
 
     <Button
-        android:id="@+id/add_task_button"
+        android:id="@+id/add_new_task_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add task"
@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
+        app:layout_constraintVertical_bias="0.348" />
 
     <Button
         android:id="@+id/view_tasks_button"
@@ -28,5 +28,5 @@
         android:text="View tasks"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_task_button" />
+        app:layout_constraintTop_toBottomOf="@+id/add_new_task_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>

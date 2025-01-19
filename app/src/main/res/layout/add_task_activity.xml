@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="149dp"
+        android:layout_height="33dp"
+        android:text="Add Task"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <EditText
+        android:id="@+id/shortName_view"
+        android:layout_width="214dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="35dp"
+        android:hint="Short Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/description_view"
+        android:layout_width="214dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="35dp"
+        android:hint="Description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shortName_view" />
+
+    <EditText
+        android:id="@+id/startTime_view"
+        android:layout_width="214dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="35dp"
+        android:hint="Start Time (HH:mm)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description_view" />
+
+    <EditText
+        android:id="@+id/duration_view"
+        android:layout_width="214dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="35dp"
+        android:hint="Duration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startTime_view" />
+
+    <EditText
+        android:id="@+id/location_view"
+        android:layout_width="214dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="35dp"
+        android:hint="Location (optional)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/duration_view" />
+
+    <Button
+        android:id="@+id/addTask_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:text="Add task"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/location_view" />
+</androidx.constraintlayout.widget.ConstraintLayout>
