@@ -10,6 +10,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.taskly.database.ViewTaskActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -28,6 +30,13 @@ public class MainActivity extends AppCompatActivity {
             // Go to add new task page
             Intent addTaskIntent = new Intent(this, AddTaskActivity.class);
             startActivity(addTaskIntent);
+        });
+
+        Button viewTasksButton = findViewById(R.id.view_tasks_button);
+        viewTasksButton.setOnClickListener((v)->{
+            // Go to view tasks page
+            Intent viewTaskActivity = new Intent(this, ViewTaskActivity.class);
+            startActivity(viewTaskActivity);
         });
     }
 }

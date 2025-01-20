@@ -76,7 +76,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
             runOnUiThread(()->{
                 for (Task task : tasks){
-                    Log.d("TaskLog", "Task ID: " + task.getId() + ", Short name: " + task.getShortName());
+                    Log.d("TaskLog", "Task ID: " + task.getId() + ", Short name: " + task.getShortName() + ", Status: " + task.getStatusId());
                 }
             });
         }).start();
