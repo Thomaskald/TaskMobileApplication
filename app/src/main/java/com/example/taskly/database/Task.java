@@ -1,8 +1,11 @@
 package com.example.taskly.database;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
+import androidx.room.Insert;
 import androidx.room.PrimaryKey;
 
 @Entity(
@@ -10,24 +13,30 @@ import androidx.room.PrimaryKey;
                 @ForeignKey(
                         entity = Status.class,
                         parentColumns = {"id"},
-                        childColumns = {"status_id"}
+                        childColumns = {"status_id"},
+                        onDelete = ForeignKey.CASCADE
                 )
-        }
+        },
+        indices = {@Index(value = {"status_id"})}
 )
 public class Task {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
     @ColumnInfo(name = "short_name")
+    @NonNull
     private String shortName;
 
     @ColumnInfo(name = "description")
+    @NonNull
     private String description;
 
     @ColumnInfo(name = "start_time")
+    @NonNull
     private String startTime; // Time in HH:mm format
 
     @ColumnInfo(name = "duration")
+    @NonNull
     private String duration;
 
     @ColumnInfo(name = "status_id")

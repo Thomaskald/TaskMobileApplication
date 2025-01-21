@@ -9,7 +9,7 @@ public class MySingleton {
     private MyDatabase myDatabase;
 
     private MySingleton(Context context){
-        myDatabase = Room.databaseBuilder(context, MyDatabase.class, "taskly_db").build();
+        myDatabase = Room.databaseBuilder(context, MyDatabase.class, "taskly_db").fallbackToDestructiveMigration().build();
     }
 
     public static MySingleton getInstance(Context context){
