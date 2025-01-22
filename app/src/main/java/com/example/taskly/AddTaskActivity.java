@@ -1,5 +1,6 @@
 package com.example.taskly;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -7,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -20,7 +22,13 @@ import com.example.taskly.database.StatusDao;
 import com.example.taskly.database.Task;
 import com.example.taskly.database.TaskDao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Locale;
 
 public class AddTaskActivity extends AppCompatActivity {
 
@@ -54,6 +62,11 @@ public class AddTaskActivity extends AppCompatActivity {
 
             if(shortName.isEmpty() || description.isEmpty() || startTime.isEmpty() || duration.isEmpty()){
                 Toast.makeText(this, "Please fill all the required fields.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!timeValidation(startTime)){
+                Toast.makeText(this, "Invalid time format. Please use HH:mm.", Toast.LENGTH_SHORT).show();
+                return;
             }
             new Thread(()->{
                 Status recordedStatus = new Status("recorded");
@@ -65,12 +78,24 @@ public class AddTaskActivity extends AppCompatActivity {
                 taskDao.storeTask(newTask);
                 runOnUiThread(()->{Toast.makeText(this, "Task added successfully", Toast.LENGTH_SHORT).show();finish();});
 
-                printTasks();
+                //printTasks();
             }).start();
         });
     }
 
-    private void printTasks(){
+    //@RequiresApi(api = Build.VERSION_CODES.O)
+    private boolean timeValidation(String time) {
+        try{
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            sdf.setLenient(false);
+            sdf.parse(time);
+            return true;
+        } catch (ParseException e){
+            return false;
+        }
+    }
+
+    /*private void printTasks(){
         new Thread(()->{
             List<Task> tasks = taskDao.getAllTasks();
 
@@ -80,5 +105,5 @@ public class AddTaskActivity extends AppCompatActivity {
                 }
             });
         }).start();
-    }
+    }*/
 }
