@@ -30,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(addTaskIntent);
         });
 
+        Button viewTaskwsButton = findViewById(R.id.view_tasks_button);
+        viewTaskwsButton.setOnClickListener((v)->{
+            Intent viewTasksIntent = new Intent(this, ViewTasksActivity.class);
+            startActivity(viewTasksIntent);
+        });
+
         Button deleteTaskButton = findViewById(R.id.delete_task_button);
         deleteTaskButton.setOnClickListener((v)->{
             //Go to delete task page
