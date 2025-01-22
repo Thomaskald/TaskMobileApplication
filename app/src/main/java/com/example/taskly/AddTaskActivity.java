@@ -83,7 +83,6 @@ public class AddTaskActivity extends AppCompatActivity {
         });
     }
 
-    //@RequiresApi(api = Build.VERSION_CODES.O)
     private boolean timeValidation(String time) {
         try{
             SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
