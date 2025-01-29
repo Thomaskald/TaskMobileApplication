@@ -6,6 +6,9 @@ import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import com.example.taskly.database.MyDatabase;
 import com.example.taskly.database.MySingleton;
@@ -17,6 +20,7 @@ import com.example.taskly.list.MyDataViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ViewTasksActivity extends AppCompatActivity {
     private TaskDao taskDao;
@@ -30,6 +34,9 @@ public class ViewTasksActivity extends AppCompatActivity {
 
         setContentView(R.layout.view_tasks_activity);
 
+        PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(TaskUpdateWorker.class, 1, TimeUnit.HOURS).build();
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork("TaskUpdateWorker", ExistingPeriodicWorkPolicy.REPLACE, workRequest);
+
         taskDao = MySingleton.getInstance(this).getMyDatabase().taskDao();
 
         RecyclerView tasksRecyclerView = findViewById(R.id.tasks_recycler_view);
@@ -40,7 +47,9 @@ public class ViewTasksActivity extends AppCompatActivity {
 
         loadTasks();
 
-        /*taskDao = MySingleton.getInstance(this).getMyDatabase().taskDao();
+
+        // Print tasks in log
+        taskDao = MySingleton.getInstance(this).getMyDatabase().taskDao();
 
         new Thread(()->{
             List<Task> tasks = taskDao.getAllTasks();
@@ -50,7 +59,7 @@ public class ViewTasksActivity extends AppCompatActivity {
                     Log.d("TaskLog", "Task ID: " + task.getId() + ", Short name: " + task.getShortName() + ", Status: " + task.getStatusId());
                 }
             });
-        }).start();*/
+        }).start();
     }
 
     private void loadTasks(){
@@ -60,9 +69,11 @@ public class ViewTasksActivity extends AppCompatActivity {
             List<MyData> myDataList = new ArrayList<>();
 
             for(Task task : tasks){
-                myDataList.add(new MyData(
-                   task.getShortName(), task.getId(), task.getDescription(), task.getStartTime(), task.getDuration(), task.getLocation()
-                ));
+                if(task.getStatusId() != 4){
+                    myDataList.add(new MyData(
+                       task.getShortName(), task.getId(), task.getDescription(), task.getStartTime(), task.getDuration(), task.getLocation()
+                    ));
+                }
             }
              runOnUiThread(()->{
                  adapter.updateData(myDataList);
