@@ -16,6 +16,9 @@
             android:name=".AddTaskActivity"
             android:exported="false" />
         <activity
+            android:name=".TaskDetailsActivity"
+            android:exported="false"/>
+        <activity
             android:name=".DeleteTaskActivity"
             android:exported="false" />
         <activity

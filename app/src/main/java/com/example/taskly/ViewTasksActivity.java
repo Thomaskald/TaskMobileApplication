@@ -41,8 +41,7 @@ public class ViewTasksActivity extends AppCompatActivity {
 
         RecyclerView tasksRecyclerView = findViewById(R.id.tasks_recycler_view);
         tasksRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        adapter = new MyDataAdapter(new ArrayList<>());
+        adapter = new MyDataAdapter(this, new ArrayList<>());
         tasksRecyclerView.setAdapter(adapter);
 
         loadTasks();
