@@ -92,5 +92,19 @@
         android:id="@+id/task_location_details">
     </TextView>
 
+    <Button
+        android:id="@+id/button_completed_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Task completed"/>
+
+    <Button
+        android:id="@+id/button_delete_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete task"
+        android:backgroundTint="@android:color/holo_red_light"/>
+
+
 
 </LinearLayout>

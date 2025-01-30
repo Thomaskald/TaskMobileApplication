@@ -41,9 +41,9 @@ public class TaskUpdateWorker extends Worker {
                 LocalTime endTime = taskStartTime.plusMinutes(taskDuration);
                 LocalTime currentTime = LocalTime.now();
 
-                if (currentTime.isAfter(taskStartTime) && currentTime.isBefore(endTime)){
+                if (task.getStatusId() != 4 && currentTime.isAfter(taskStartTime) && currentTime.isBefore(endTime)){
                     task.setStatusId(2);
-                }else if (currentTime.isAfter(endTime)){
+                }else if (task.getStatusId() != 4 && currentTime.isAfter(endTime)){
                     task.setStatusId(3);
                 }
                 taskDao.updateTask(task);
