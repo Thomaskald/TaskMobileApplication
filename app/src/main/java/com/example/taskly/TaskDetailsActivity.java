@@ -1,5 +1,7 @@
 package com.example.taskly;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -50,6 +52,12 @@ public class TaskDetailsActivity extends AppCompatActivity {
                     taskDao.updateTask(task);
                     runOnUiThread(()->{
                         Toast.makeText(this, "Task marked as completed", Toast.LENGTH_SHORT).show();
+
+                        // Return to main activity
+                        Intent intent = new Intent(TaskDetailsActivity.this, MainActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
                         finish();
                     });
                 }
@@ -65,10 +73,33 @@ public class TaskDetailsActivity extends AppCompatActivity {
                         taskDao.deleteTask(task);
                         runOnUiThread(()->{
                             Toast.makeText(this, "Task deleted successfully", Toast.LENGTH_SHORT).show();
+
+                            // Return to main activity
+                            Intent intent = new Intent(TaskDetailsActivity.this, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                            startActivity(intent);
                             finish();
                         });
                     }
                 }).start();
+        });
+
+        Button locationButton = findViewById(R.id.button_location_details);
+        locationButton.setOnClickListener((v)->{
+            String locationText = location.getText().toString().trim();
+
+            if(!locationText.isEmpty()){
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(locationText));
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                if(mapIntent.resolveActivity(getPackageManager()) != null){
+                    startActivity(mapIntent);
+                }else{
+                    Toast.makeText(this, "Google Maps is not installed", Toast.LENGTH_SHORT).show();
+                }
+            }else{
+                Toast.makeText(this, "No location available fot this task", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

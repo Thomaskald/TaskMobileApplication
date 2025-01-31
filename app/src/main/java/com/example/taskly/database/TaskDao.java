@@ -28,4 +28,7 @@ public interface TaskDao {
     @Query("SELECT * FROM tasks WHERE id = :id")
     Task getTaskById(int id);
 
+    @Query("SELECT * FROM tasks WHERE status_id != 4")
+    List<Task> getIncompleteTasks();
+
 }

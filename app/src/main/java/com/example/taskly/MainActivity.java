@@ -3,6 +3,7 @@ package com.example.taskly;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
+
+import com.example.taskly.database.MySingleton;
+import com.example.taskly.database.TaskDao;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         PeriodicWorkRequest workRequest = new PeriodicWorkRequest.Builder(TaskUpdateWorker.class, 1, TimeUnit.HOURS).build();
         WorkManager.getInstance(this).enqueueUniquePeriodicWork("TaskUpdateWorker", ExistingPeriodicWorkPolicy.REPLACE, workRequest);
+        TaskDao taskDao = MySingleton.getInstance(this).getMyDatabase().taskDao();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -43,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
         viewTaskwsButton.setOnClickListener((v)->{
             Intent viewTasksIntent = new Intent(this, ViewTasksActivity.class);
             startActivity(viewTasksIntent);
+        });
+
+        Button extractButton = findViewById(R.id.extract_tasks_button);
+        extractButton.setOnClickListener((v)->{
+            Exporter.exportTasks(this, taskDao);
+            Toast.makeText(this, "Exporting tasks...", Toast.LENGTH_SHORT).show();
         });
 
         /*Button deleteTaskButton = findViewById(R.id.delete_task_button);
