@@ -25,7 +25,25 @@ public class Exporter {
             List<Task> tasks = taskDao.getIncompleteTasks();
 
             StringBuilder content = new StringBuilder();
-            content.append("Export\n");
+
+            content.append("<html><head><title>Task Export</title></head><body>");
+            content.append("<h1>Task Export</h1><hr>");
+            for (Task task : tasks) {
+                content.append("<p><b>ID:</b> ").append(task.getId()).append("</p>");
+                content.append("<p><b>Name:</b> ").append(task.getShortName()).append("</p>");
+                content.append("<p><b>Description:</b> ").append(task.getDescription()).append("</p>");
+                content.append("<p><b>Start Time:</b> ").append(task.getStartTime()).append("</p>");
+                content.append("<p><b>Duration:</b> ").append(task.getDuration()).append("</p>");
+                content.append("<p><b>Location:</b> ").append(task.getLocation()).append("</p>");
+                content.append("<p><b>Status ID:</b> ").append(task.getStatusId()).append("</p>");
+                content.append("<hr>");
+            }
+            content.append("</body></html>");
+
+            String fileName = "incomplete_tasks.html";
+            boolean success = saveToDownloads(context, fileName, content.toString());
+
+            /*content.append("Export\n");
             for( Task task : tasks){
                 content.append("Id: ").append(task.getId()).append("\n");
                 content.append("Name: ").append(task.getShortName()).append("\n");
@@ -36,7 +54,7 @@ public class Exporter {
             }
 
             String fileName = "incomplete_tasks.txt";
-            boolean success = saveToDownloads(context, fileName, content.toString());
+            boolean success = saveToDownloads(context, fileName, content.toString());*/
 
             if(success){
                 showToast(context, "Tasks exported successfully to Downloads folder.");
@@ -55,7 +73,7 @@ public class Exporter {
                 ContentResolver resolver = context.getContentResolver();
                 ContentValues values = new ContentValues();
                 values.put(MediaStore.Downloads.DISPLAY_NAME, fileName);
-                values.put(MediaStore.Downloads.MIME_TYPE, "text/plain");
+                values.put(MediaStore.Downloads.MIME_TYPE, "text/html");
                 values.put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
                 Uri fileUri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
                 if(fileUri == null){
