@@ -91,11 +91,13 @@ public class TaskDetailsActivity extends AppCompatActivity {
             if(!locationText.isEmpty()){
                 Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(locationText));
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
+                //mapIntent.setPackage("com.google.android.apps.maps");
                 if(mapIntent.resolveActivity(getPackageManager()) != null){
                     startActivity(mapIntent);
                 }else{
-                    Toast.makeText(this, "Google Maps is not installed", Toast.LENGTH_SHORT).show();
+                    Uri webUri = Uri.parse("https://www.google.com/maps/search/?api=1&query=" + Uri.encode(locationText));
+                    Intent webIntent = new Intent(Intent.ACTION_VIEW, webUri);
+                    startActivity(webIntent);
                 }
             }else{
                 Toast.makeText(this, "No location available fot this task", Toast.LENGTH_SHORT).show();
